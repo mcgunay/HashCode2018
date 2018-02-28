@@ -12,7 +12,8 @@ namespace ConsoleApplication1
         {
             Console.WriteLine("Hello Git");
             Console.ReadKey();
-            /*bu comment oldu mu buraya?*/
+            /*bu comment oldu mu buraya?*/ 
+            /*oldu gibi*/
         }
     }
 }
