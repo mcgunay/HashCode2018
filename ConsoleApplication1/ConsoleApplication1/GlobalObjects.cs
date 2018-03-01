@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
-    public class GlobalObjects
+    public static class GlobalObjects
     {
         public static int gridX;
         public static int gridY;
@@ -20,7 +20,34 @@ namespace ConsoleApplication1
         public static List<Ride> ride = new List<Ride>();
         public static List<Vehicle> vehicle = new List<Vehicle>();
 
-        public static List<Ride> GetSortedRides(Vehicle vehicle) {  }
+        public static List<Ride> GetSortedRides(int x, int y)
+        {
+            int reachDistance = 0;
+            int waitTurn = 0;
+
+            foreach (var item in ride)
+            {
+                reachDistance = CalculateDistance(x, y, item.startX, item.startY);
+                waitTurn = CalculateWaitTurn(item.earliestStart, reachDistance);
+
+                item.score = reachDistance + waitTurn + item.distance;
+            }
+
+            List<Ride> sortedRides = ride.OrderBy(o=>o.score).ToList();
+
+            return sortedRides;
+        }
+
+        private static int CalculateDistance(int x1, int y1, int x2, int y2)
+        {
+            return (Math.Abs(y2 - y1) + Math.Abs(x2 - x1));
+        }
+
+        private static int CalculateWaitTurn(int earliestStep, int ReachDist)
+        {
+            return (earliestStep - (ReachDist + currentStep));
+        }
+
     }
 
     public class Ride
@@ -34,8 +61,12 @@ namespace ConsoleApplication1
         public int latestFinish;
         public bool isAssigned = false;
         public int distance;
+        public int score;
 
-        public void CalculateDistance() { }
+        public void CalculateDistance()
+        {
+            distance = (Math.Abs(startX - destX) + Math.Abs(startY - destY));
+        }
     }
     public class Vehicle
     {
@@ -52,7 +83,10 @@ namespace ConsoleApplication1
 
         public bool IsRideAvailable(Ride ride) { return false; }
 
-
+        public void Move()
+        {
+            totalTurnLeftToTarget--;
+        }
     }
 
 }
