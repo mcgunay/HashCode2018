@@ -10,10 +10,15 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello Git");
-            Console.ReadKey();
-            /*bu comment oldu mu buraya?*/ 
-            /*oldu gibi*/
+            Reader inReader = new Reader();
+
+            inReader.ReadInputFile();
+
+            GlobalObjects.gridX = GlobalObjects.gridY;
+
+            string[] lines = { "can", "ozel", "cibili" };
+            inReader.WriteOutputFile(lines);
+
         }
     }
 }
