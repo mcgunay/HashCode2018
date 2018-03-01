@@ -10,17 +10,38 @@ namespace ConsoleApplication1
     {
         public void ReadInputFile()
         {
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\z003wknx\Desktop\qualification_round_2016.in\busy_day.in");
+            /*init starts*/
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\z003wknx\Desktop\googleHash2018\a_example.in");
             string[] bitsInLine = lines[0].Split(' ');
             GlobalObjects.gridX = int.Parse(bitsInLine[0]);
             GlobalObjects.gridY = int.Parse(bitsInLine[1]);
-            int warehouseCount = int.Parse(bitsInLine[2]);
+            GlobalObjects.totalVehicles = int.Parse(bitsInLine[2]);
+            GlobalObjects.totalRides = int.Parse(bitsInLine[3]);
+            GlobalObjects.bonus = int.Parse(bitsInLine[4]);
+            GlobalObjects.totalSteps = int.Parse(bitsInLine[5]);
 
-            for (int i = 0; i < warehouseCount; i++)
-                GlobalObjects.warehouseList.Add(new Warehouse());
+            for (int i = 0; i < GlobalObjects.totalVehicles; i++)
+            {
+                GlobalObjects.vehicle.Add(new Vehicle());
+            }
 
-            GlobalObjects.warehouseList[0].posX = int.Parse(bitsInLine[3]);
-            GlobalObjects.warehouseList[0].posY = int.Parse(bitsInLine[4]);
+            for (int i = 0; i < GlobalObjects.totalRides; i++)
+            {
+                GlobalObjects.ride.Add(new Ride());
+            }
+
+            for(int i = 0; i < GlobalObjects.totalRides; i++)
+            {
+                bitsInLine = lines[i + 1].Split(' ');
+                GlobalObjects.ride[i].startX = int.Parse(bitsInLine[0]);
+                GlobalObjects.ride[i].startY = int.Parse(bitsInLine[1]);
+                GlobalObjects.ride[i].destX = int.Parse(bitsInLine[2]);
+                GlobalObjects.ride[i].destY = int.Parse(bitsInLine[3]);
+                GlobalObjects.ride[i].earliestStart = int.Parse(bitsInLine[4]);
+                GlobalObjects.ride[i].latestFinish = int.Parse(bitsInLine[5]);
+            }
+
+            /*init ends*/
         }
 
         public void WriteOutputFile(string[] lines)
