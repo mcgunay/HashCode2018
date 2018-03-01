@@ -21,6 +21,7 @@ namespace ConsoleApplication1
 
     public class Ride
     {
+        public int Id;
         public int startX;
         public int startY;
         public int destX;

@@ -33,6 +33,7 @@ namespace ConsoleApplication1
             for(int i = 0; i < GlobalObjects.totalRides; i++)
             {
                 bitsInLine = lines[i + 1].Split(' ');
+                GlobalObjects.ride[i].Id = i;
                 GlobalObjects.ride[i].startX = int.Parse(bitsInLine[0]);
                 GlobalObjects.ride[i].startY = int.Parse(bitsInLine[1]);
                 GlobalObjects.ride[i].destX = int.Parse(bitsInLine[2]);
