@@ -14,12 +14,6 @@ namespace ConsoleApplication1
             inReader.ReadInputFile();
             string[] outputLines = new string[GlobalObjects.totalVehicles];
 
-            /*Examples! will be deleted*/
-            GlobalObjects.vehicle[0].completedRides.Add(1);
-            GlobalObjects.vehicle[0].completedRides.Add(5);
-            GlobalObjects.vehicle[0].completedRides.Add(13);
-            /*Examples! will be deleted*/
-
             List<Ride> SortedRideList = GlobalObjects.GetSortedRides(GlobalObjects.vehicle[0].currentX, GlobalObjects.vehicle[0].currentY);
             for (int i = 0; i < GlobalObjects.vehicle.Count; i++)
             {
@@ -42,9 +36,13 @@ namespace ConsoleApplication1
                 {
                     SortedRideList =
                         GlobalObjects.GetSortedRides(AvailableVehicles[i].currentX, AvailableVehicles[i].currentY);
+                    if (SortedRideList.Count == 0)
+                        break; 
 
                     Ride AvailableRide = SortedRideList
                         .FirstOrDefault(s => AvailableVehicles[i].IsRideAvailable(s));
+                    if (AvailableRide == null)
+                        continue;
                     AvailableVehicles[i].AssignRide(AvailableRide);
                     //SortedRideList.Remove(AvailableRide);
 
@@ -67,7 +65,7 @@ namespace ConsoleApplication1
 
                 for (int j = 0; j < GlobalObjects.vehicle[i].completedRides.Count(); j++)
                 {
-                    outputLines[i] += GlobalObjects.vehicle[0].completedRides[j].ToString();
+                    outputLines[i] += GlobalObjects.vehicle[i].completedRides[j].ToString();
                     outputLines[i] += " ";
                 }
             }

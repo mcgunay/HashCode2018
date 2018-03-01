@@ -82,6 +82,7 @@ namespace ConsoleApplication1
             this.isBusy = true;
             this.currentRide = ride;
             ride.isAssigned = true;
+            this.totalTurnLeftToTarget = CalculateTotalSteps(ride);
             GlobalObjects.ride.Remove(ride);
         }
 
@@ -112,6 +113,20 @@ namespace ConsoleApplication1
                 return false;
             }
             return true;
+        }
+
+        public int CalculateTotalSteps(Ride ride)
+        {
+            int total_time = 0;
+
+            total_time += Math.Abs(this.currentX - ride.startX);
+            total_time += Math.Abs(this.currentY - ride.startY);
+            if ((GlobalObjects.currentStep + total_time) < ride.earliestStart)
+            {
+                total_time += (ride.earliestStart - (GlobalObjects.currentStep + total_time)); //wait for ride
+            }
+            total_time += ride.distance;
+            return total_time;
         }
 
         public void Move()
