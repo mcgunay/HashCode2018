@@ -20,9 +20,40 @@ namespace ConsoleApplication1
             GlobalObjects.vehicle[0].completedRides.Add(13);
             /*Examples! will be deleted*/
 
+            List<Ride> SortedRideList = GlobalObjects.GetSortedRides(GlobalObjects.vehicle[0].currentX, GlobalObjects.vehicle[0].currentY);
+            for (int i = 0; i < GlobalObjects.vehicle.Count; i++)
+            {
+                GlobalObjects.vehicle[i].AssignRide(SortedRideList[i]);
+            }
 
             /*Code Here*/
+            while (GlobalObjects.totalSteps >= GlobalObjects.currentStep)
+            {
+                for (int i = 0; i < GlobalObjects.vehicle.Count; i++)
+                {
+                    GlobalObjects.vehicle[i].Move();
+                    if (GlobalObjects.vehicle[i].totalTurnLeftToTarget == 0)
+                    {
+                        GlobalObjects.vehicle[i].CompleteRide();
+                    }
+                }
+                List<Vehicle> AvailableVehicles = GlobalObjects.vehicle.Where(s => s.isBusy == false).ToList();
+                for (int i = 0; i < AvailableVehicles.Count; i++)
+                {
+                    SortedRideList =
+                        GlobalObjects.GetSortedRides(AvailableVehicles[i].currentX, AvailableVehicles[i].currentY);
 
+                    Ride AvailableRide = SortedRideList
+                        .FirstOrDefault(s => AvailableVehicles[i].IsRideAvailable(s));
+                    AvailableVehicles[i].AssignRide(AvailableRide);
+                    //SortedRideList.Remove(AvailableRide);
+
+                }
+
+                GlobalObjects.currentStep++;
+
+
+            }
 
 
 
