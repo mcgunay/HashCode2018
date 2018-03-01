@@ -11,13 +11,14 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             Reader inReader = new Reader();
+            string[] outputLines = { "google", "hash", "2018" };
 
             inReader.ReadInputFile();
 
             GlobalObjects.gridX = GlobalObjects.gridY;
 
-            string[] lines = { "can", "ozel", "cibili" };
-            inReader.WriteOutputFile(lines);
+
+            inReader.WriteOutputFile(outputLines);
 
         }
     }
