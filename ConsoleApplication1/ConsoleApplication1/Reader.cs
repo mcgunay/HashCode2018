@@ -40,6 +40,7 @@ namespace ConsoleApplication1
                 GlobalObjects.ride[i].destY = int.Parse(bitsInLine[3]);
                 GlobalObjects.ride[i].earliestStart = int.Parse(bitsInLine[4]);
                 GlobalObjects.ride[i].latestFinish = int.Parse(bitsInLine[5]);
+                GlobalObjects.ride[i].CalculateDistance();
             }
 
             /*init ends*/
