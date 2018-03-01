@@ -46,13 +46,41 @@ namespace ConsoleApplication1
         public int totalTurnLeftToTarget = 0;
         public Ride currentRide;
 
-        public void AssignRide(Ride ride) { }
+        public void AssignRide(Ride ride)
+        {
+            this.isBusy = true;
+            this.currentRide = ride;
+            ride.isAssigned = true;
+            GlobalObjects.ride.Remove(ride);
+        }
 
-        public void CompleteRide(Ride ride) { }
+        public void CompleteRide( )
+        {
+            this.completedRides.Add(this.currentRide.Id);
+            this.isBusy = false;
+            //this.totalTurnLeftToTarget = 0;
+            this.currentX = this.currentRide.destX;
+            this.currentY = this.currentRide.destY;
+            this.currentRide = null;
+        }
 
-        public bool IsRideAvailable(Ride ride) { return false; }
+        public bool IsRideAvailable(Ride ride)
+        {
+            int total_time = 0;
 
+            total_time += Math.Abs(this.currentX - ride.startX);
+            total_time += Math.Abs(this.currentY - ride.startY);
+            if((GlobalObjects.currentStep + total_time) < ride.earliestStart)
+            {
+                total_time += (ride.earliestStart - (GlobalObjects.currentStep + total_time)); //wait for ride
+            }
+            total_time += ride.distance;
 
+            if((GlobalObjects.currentStep + total_time) > ride.latestFinish)
+            {
+                return false;
+            }
+            return true;
+        }
     }
-
 }
