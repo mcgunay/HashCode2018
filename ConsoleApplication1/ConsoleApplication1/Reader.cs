@@ -11,7 +11,7 @@ namespace ConsoleApplication1
         public void ReadInputFile()
         {
             /*init starts*/
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\z003wknx\Desktop\googleHash2018\a_example.in");
+            string[] lines = System.IO.File.ReadAllLines(@"a_example.in");
             string[] bitsInLine = lines[0].Split(' ');
             GlobalObjects.gridX = int.Parse(bitsInLine[0]);
             GlobalObjects.gridY = int.Parse(bitsInLine[1]);
@@ -48,7 +48,7 @@ namespace ConsoleApplication1
 
         public void WriteOutputFile(string[] lines)
         {
-            System.IO.File.WriteAllLines(@"C:\Users\z003wknx\Desktop\googleHash2018\output.txt", lines);
+            System.IO.File.WriteAllLines(@"output.txt", lines);
         }
  
         
