@@ -11,7 +11,7 @@ namespace ConsoleApplication1
         public void ReadInputFile()
         {
             /*init starts*/
-            string[] lines = System.IO.File.ReadAllLines(@"d_metropolis.in");
+            string[] lines = System.IO.File.ReadAllLines(@"e_high_bonus.in");
             string[] bitsInLine = lines[0].Split(' ');
             GlobalObjects.gridX = int.Parse(bitsInLine[0]);
             GlobalObjects.gridY = int.Parse(bitsInLine[1]);

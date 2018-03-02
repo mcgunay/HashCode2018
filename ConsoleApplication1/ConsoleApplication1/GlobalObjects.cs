@@ -45,7 +45,11 @@ namespace ConsoleApplication1
 
         private static int CalculateWaitTurn(int earliestStep, int ReachDist)
         {
-            return (earliestStep - (ReachDist + currentStep));
+            int waitTimeCount = (earliestStep - (ReachDist + currentStep));
+            if (waitTimeCount < 0)
+                waitTimeCount = 0;
+
+            return waitTimeCount;
         }
 
     }
