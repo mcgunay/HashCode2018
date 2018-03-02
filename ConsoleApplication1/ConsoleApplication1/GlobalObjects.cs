@@ -20,6 +20,7 @@ namespace ConsoleApplication1
         public static List<Ride> ride = new List<Ride>();
         public static List<Vehicle> vehicle = new List<Vehicle>();
 
+        /*
         public static List<Ride> GetSortedRides(int x, int y)
         {
             int reachDistance = 0;
@@ -34,6 +35,34 @@ namespace ConsoleApplication1
             }
 
             List<Ride> sortedRides = ride.OrderBy(o=>o.score).ToList();
+
+            return sortedRides;
+        }
+        */
+
+        public static List<Ride> GetSortedRides(int x, int y)
+        {
+            int reachDistance = 0;
+            int waitTurn = 0;
+            int busyTimeTurn = 0;
+            int possiblePoint = 0;
+
+            foreach (var item in ride)
+            {
+                reachDistance = CalculateDistance(x, y, item.startX, item.startY);
+                waitTurn = CalculateWaitTurn(item.earliestStart, reachDistance);
+
+                busyTimeTurn = reachDistance + waitTurn + item.distance;
+                possiblePoint = item.distance;
+                if (item.earliestStart >= reachDistance + currentStep)
+                {
+                    possiblePoint += bonus;
+                }
+
+                item.score = Convert.ToDouble(possiblePoint)/ Convert.ToDouble(busyTimeTurn);
+            }
+
+            List<Ride> sortedRides = ride.OrderByDescending(o => o.score).ToList();
 
             return sortedRides;
         }
@@ -65,7 +94,7 @@ namespace ConsoleApplication1
         public int latestFinish;
         public bool isAssigned = false;
         public int distance;
-        public int score;
+        public double score;
 
         public void CalculateDistance()
         {
