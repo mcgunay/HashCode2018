@@ -10,7 +10,34 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            Reader inReader = new Reader();
+
+            string[] InputPaths = {"a_example.in", "b_should_be_easy.in", "c_no_hurry.in", "d_metropolis.in", "e_high_bonus.in" };
+            string[] OutputPaths = {"a_example_output.txt", "b_should_be_easy_output.txt", "c_no_hurry_output.txt", "d_metropolis_output.txt", "e_high_bonus_output.txt" };
+
+            for (int i = 0; i < InputPaths.Length; i++)
+            {
+                Console.WriteLine("Operation is started for input file: " + InputPaths[i]);
+                DateTime StartTime = DateTime.Now;
+
+                Run(InputPaths[i], OutputPaths[i]);
+
+                DateTime EndTime = DateTime.Now;
+                Console.WriteLine("Output file is created for " +InputPaths[i] + " inputs in " + (EndTime - StartTime).TotalSeconds+ " seconds.");
+                Console.WriteLine("------------------------------------------------------------");
+            }
+
+            Console.WriteLine("Press any key for exit.");
+            Console.ReadLine();
+
+        }
+
+        public static void Run(string inputPath, string outputPath)
+        {
+            GlobalObjects.vehicle = new List<Vehicle>();
+            GlobalObjects.ride = new List<Ride>();
+            GlobalObjects.currentStep = 0;
+
+            Reader inReader = new Reader(inputPath, outputPath);
             inReader.ReadInputFile();
             string[] outputLines = new string[GlobalObjects.totalVehicles];
 
@@ -37,7 +64,7 @@ namespace ConsoleApplication1
                     SortedRideList =
                         GlobalObjects.GetSortedRides(AvailableVehicles[i].currentX, AvailableVehicles[i].currentY);
                     if (SortedRideList.Count == 0)
-                        break; 
+                        break;
 
                     Ride AvailableRide = SortedRideList
                         .FirstOrDefault(s => AvailableVehicles[i].IsRideAvailable(s));

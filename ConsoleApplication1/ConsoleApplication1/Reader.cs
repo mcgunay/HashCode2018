@@ -8,10 +8,20 @@ namespace ConsoleApplication1
 {
     class Reader
     {
+        public string InPath { get; set; }
+        public string OutputPath { get; set; }
+
+        public Reader(string inPath, string outPath)
+        {
+            InPath = inPath;
+            OutputPath = outPath;
+        }
+
         public void ReadInputFile()
         {
             /*init starts*/
-            string[] lines = System.IO.File.ReadAllLines(@"e_high_bonus.in");
+            string[] lines = System.IO.File.ReadAllLines(InPath);
+            //string[] lines = System.IO.File.ReadAllLines(@"e_high_bonus.in");
             string[] bitsInLine = lines[0].Split(' ');
             GlobalObjects.gridX = int.Parse(bitsInLine[0]);
             GlobalObjects.gridY = int.Parse(bitsInLine[1]);
@@ -48,7 +58,8 @@ namespace ConsoleApplication1
 
         public void WriteOutputFile(string[] lines)
         {
-            System.IO.File.WriteAllLines(@"output.txt", lines);
+            System.IO.File.WriteAllLines(OutputPath, lines);
+            //System.IO.File.WriteAllLines(@"output.txt", lines);
         }
  
         
